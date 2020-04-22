@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const Form = () => {
+const TeamMemberForm = () => {
 
 
      return (
@@ -53,4 +53,4 @@ const Form = () => {
         )
 }
 
-export default Form
+export default TeamMemberForm
