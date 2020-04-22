@@ -21,6 +21,8 @@ const TeamMemberForm = (props) => {
         <h3>{errors.name}</h3>
         <h3>{errors.email}</h3>
         <h3>{errors.password}</h3>
+        <h3>{errors.termsOfService}</h3>
+
       </div>
       {/* ////////// TEXT INPUTS ////////// */}
       <label>Name:&nbsp;

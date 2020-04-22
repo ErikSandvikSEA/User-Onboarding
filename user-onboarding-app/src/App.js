@@ -15,7 +15,7 @@ const initialFormValues = {
   ///// DROPDOWN /////
   password: '',
   ///// CHECKBOXES /////
-  termsOfService: '',
+  termsOfService: false,
   hobbies: {
     hiking: false,
     reading: false,
@@ -47,7 +47,7 @@ const formSchema = yup.object().shape({
     )
     .required('Password is required'),
   termsOfService: yup
-    .boolean().oneOf([true], 'please agree')
+    .boolean().oneOf([true], 'Please agree to terms of service')
 })
 
 
@@ -115,10 +115,11 @@ const App = () => {
   const onInputChange = evt => {
     const name = evt.target.name
     const value = evt.target.value
+    const checked = evt.target.checked
 
     yup
       .reach(formSchema, name)
-      .validate(value)
+      .validate(value, checked)
       .then(valid => {
         //clear errors
         setFormErrors({
@@ -145,9 +146,7 @@ const App = () => {
 
     setFormValues({
       ...formValues,
-      termsOfService: {
-        [name]: isChecked,
-      }
+      [name]: isChecked
     })
   }
 
