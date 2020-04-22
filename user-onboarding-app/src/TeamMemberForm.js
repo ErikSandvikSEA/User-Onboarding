@@ -1,8 +1,16 @@
 import React from 'react';
 import './App.css';
 
-const TeamMemberForm = () => {
-
+const TeamMemberForm = (props) => {
+  const {
+    values,
+    onSubmit,
+    disabled,
+    errors,
+    onCheckboxChange,
+    onInputChange
+  } = props
+  console.log(values)
 
      return (
           <form className='friend container'>
@@ -16,6 +24,8 @@ const TeamMemberForm = () => {
             <input
                 name='name'
                 type='text'
+                value={values.name}
+                onChange={onInputChange}
               />
                {/* IN-Line STYLE {errors.username.length > 2 ? (<p className="errors">{errors.username}</p>) : null} */}
               </label>
@@ -23,6 +33,8 @@ const TeamMemberForm = () => {
             <input
                 name='email'
                 type='text'
+                value={values.email}
+                onChange={onInputChange}
               />
               {/* IN-Line STYLE {errors.email ? (<p className="errors">{errors.email}</p>) : null} */}
               </label>
@@ -32,23 +44,31 @@ const TeamMemberForm = () => {
             <input
                name='password'
                type='password'
+               value={values.password}
+               onChange={onInputChange}
               />
               {/* IN-Line STYLE {errors.civil ? (<p className="errors">{errors.civil}</p>) : null} */}
               </label>
       
             {/* ////////// CHECKBOXES ////////// */}
             <label><input
+              checked={values.hobbies.hiking}
+              onChange={onCheckboxChange}
               name='hiking'
               type="checkbox" /> Hiking</label>
             <label><input
+              checked={values.hobbies.reading}
+              onChange={onCheckboxChange}
               name='reading'
               type="checkbox" /> Reading</label>
             <label><input
+              checked={values.hobbies.coding}
+              onChange={onCheckboxChange}
               name='coding'
               type="checkbox" /> Coding</label>
       
             {/* ////////// DISABLED PROP NEW FOR TODAY ////////// */}
-            <button>submit</button>
+            <button onClick={onSubmit} disabled={disabled}>submit</button>
           </form>
         )
 }

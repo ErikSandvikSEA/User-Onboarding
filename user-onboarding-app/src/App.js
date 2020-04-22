@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import TeamMemberForm from './TeamMemberForm'
 import * as yup from 'yup'
 import axios from 'axios'
@@ -42,38 +42,107 @@ const formSchema = yup.object().shape({
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
       "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     )
-    .required('Civil status is required')
+    .required('Password is required')
 })
 
 
-function App() {
+const App = () => {
   const [teamMembers, setTeamMembers] = useState([])
   const [formValues, setFormValues] = useState(initialFormValues)
 
-const [formEnabled, setFormEnabled] = useState(false)
-const [formErrors, setFormErrors] = useState(initialFormErrors)
+  const [formDisabled, setFormDisabled] = useState(true)
 
-const postTeamMember = teamMember => {
-  axios.post(url, teamMember)
-  .then(res => {
-    setTeamMembers(...teamMembers, res.data)
-  })
-  .catch(err => {
-    console.log('error')
-  })
-}
+  const [formErrors, setFormErrors] = useState(initialFormErrors)
 
 
+  const postTeamMember = teamMember => {
+    axios.post(url, teamMember)
+      .then(res => {
+        setTeamMembers(...teamMembers, res.data)
+      })
+      .catch(err => {
+        console.log('error')
+      })
+  }
+
+  useEffect(() => {
+    formSchema.isValid(formValues)
+      .then(valid => {
+        setFormDisabled(!valid)
+      })
+  }, [formValues])
 
 
+  const onSubmit = evt => {
+    evt.preventDefault()
+
+    const newTeamMember = {
+      name: formValues.name,
+      email: formValues.email,
+      password: formValues.password,
+      hobbies: Object.keys(formValues.hobbies)
+        .filter(hobby => formValues.hobbies[hobby] === true)
+    }
+
+    // 🔥 STEP 6 - WE NEED TO POST OUR NEW FRIEND TO THE API!
+    postTeamMember(newTeamMember)
+    setFormValues(initialFormValues)
+  }
+
+  const onInputChange = evt => {
+    const name = evt.target.name
+    const value = evt.target.value
+
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then(valid => {
+        //clear errors
+        setFormErrors({
+          ...formErrors,
+          [name]: '',
+        })
+      })
+      .catch(err => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0]
+        })
+      })
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    })
+  }
+
+  const onCheckboxChange = evt => {
+    const { name } = evt.target
+    const isChecked = evt.target.checked
+
+    setFormValues({
+      ...formValues,
+      hobbies: {
+        ...formValues.hobbies,
+        [name]: isChecked,
+      }
+    })
+  }
 
 
 
   return (
     <div className="App">
-    <TeamMemberForm>
+      <header><h1>Team Members</h1></header>
+      <TeamMemberForm
+        values={formValues}
+        onSubmit={onSubmit}
+        disabled={formDisabled}
+        errors={formErrors}
+        onCheckboxChange={onCheckboxChange}
+        onInputChange={onInputChange}
 
-    </TeamMemberForm>
+      />
+
     </div>
   );
 }
