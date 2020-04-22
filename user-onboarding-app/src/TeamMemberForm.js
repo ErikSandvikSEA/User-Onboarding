@@ -8,7 +8,8 @@ const TeamMemberForm = (props) => {
     disabled,
     errors,
     onCheckboxChange,
-    onInputChange
+    onInputChange,
+    onTermsAgreement
   } = props
   console.log(values)
 
@@ -68,6 +69,12 @@ const TeamMemberForm = (props) => {
         onChange={onCheckboxChange}
         name='coding'
         type="checkbox" /> Coding</label>
+
+<label><input
+        checked={values.termsOfService}
+        onChange={onTermsAgreement}
+        name='termsOfService'
+        type="checkbox" /> Terms of Service</label>
 
       {/* ////////// DISABLED PROP NEW FOR TODAY ////////// */}
       <button onClick={onSubmit} disabled={disabled}>submit</button>

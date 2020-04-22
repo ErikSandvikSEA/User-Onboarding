@@ -15,6 +15,7 @@ const initialFormValues = {
   ///// DROPDOWN /////
   password: '',
   ///// CHECKBOXES /////
+  termsOfService: '',
   hobbies: {
     hiking: false,
     reading: false,
@@ -26,6 +27,7 @@ const initialFormErrors = {
   name: '',
   email: '',
   password: '',
+  termsOfService: '',
 }
 
 const formSchema = yup.object().shape({
@@ -43,7 +45,9 @@ const formSchema = yup.object().shape({
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
       "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
     )
-    .required('Password is required')
+    .required('Password is required'),
+  termsOfService: yup
+    .boolean().oneOf([true], 'please agree')
 })
 
 
@@ -56,10 +60,27 @@ const App = () => {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
 
 
+  // const getTeamMembers = () => {
+  //   axios.get(url)
+  //   .then(res => {
+  //     setTeamMembers(res.data)
+  //   })
+  //   .catch(err => {
+  //     console.log('error')
+  //   })
+  // }
+
+
+  // useEffect(() => {
+  //   getTeamMembers()
+  // }, [])
+
+
+
   const postTeamMember = teamMember => {
     axios.post(url, teamMember)
       .then(res => {
-        setTeamMembers(...teamMembers, res.data)
+        setTeamMembers([...teamMembers, res.data])
       })
       .catch(err => {
         console.log('error')
@@ -81,6 +102,7 @@ const App = () => {
       name: formValues.name,
       email: formValues.email,
       password: formValues.password,
+      termsOfService: formValues.termsOfService===true,
       hobbies: Object.keys(formValues.hobbies)
         .filter(hobby => formValues.hobbies[hobby] === true)
     }
@@ -116,6 +138,19 @@ const App = () => {
     })
   }
 
+
+  const onTermsAgreement = evt => {
+    const {name} = evt.target
+    const isChecked = evt.target.checked
+
+    setFormValues({
+      ...formValues,
+      termsOfService: {
+        [name]: isChecked,
+      }
+    })
+  }
+
   const onCheckboxChange = evt => {
     const { name } = evt.target
     const isChecked = evt.target.checked
@@ -141,6 +176,7 @@ const App = () => {
         errors={formErrors}
         onCheckboxChange={onCheckboxChange}
         onInputChange={onInputChange}
+        onTermsAgreement={onTermsAgreement}
 
       />
       {
