@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import TeamMemberForm from './TeamMemberForm'
+import TeamMember from './TeamMember'
 import * as yup from 'yup'
 import axios from 'axios'
 import './App.css';
@@ -30,7 +31,7 @@ const initialFormErrors = {
 const formSchema = yup.object().shape({
   name: yup
     .string()
-    .min(1, 'Name must have at least 1 characters')
+    .min(2, 'Name must have at least 2 characters')
     .required('Name is required'),
   email: yup
     .string()
@@ -142,6 +143,13 @@ const App = () => {
         onInputChange={onInputChange}
 
       />
+      {
+        teamMembers.map(teamMember => {
+          return (
+            <TeamMember key={teamMember.name} details={teamMember} />
+          )
+        })
+      }
 
     </div>
   );
