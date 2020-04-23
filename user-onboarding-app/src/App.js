@@ -33,19 +33,19 @@ const initialFormErrors = {
 const formSchema = yup.object().shape({
   name: yup
     .string()
-    .min(2, 'Name must have at least 2 characters')
+    .min(3, 'Name must have at least 3 characters')
     .required('Name is required'),
   email: yup
     .string()
-    .email('Valid email is required')
-    .required('Email is required'),
+    .required('Email is required')
+    .email('Valid email is required'),
   password: yup
     .string()
+    .required('Password is required')
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/,
       "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
-    )
-    .required('Password is required'),
+    ),
   termsOfService: yup
     .boolean().oneOf([true], 'Please agree to terms of service')
 })

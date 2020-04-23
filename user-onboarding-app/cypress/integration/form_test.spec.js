@@ -1,9 +1,13 @@
 import { v4 as uuid } from 'uuid'
 
 const name=uuid().slice(0,5)
+const errorUserName = `B`
+const nameErrorInput = 'nameErrorInput'
+const nameErrorMessage = 'Name must have at least 3 characters'
 const email = `${name}@helloworld.com`
 const password = `A!23abc`
 const termsOfService = 'termsOfServiceCheckbox'
+
 
 describe('Friends Form', () => {
      it('can navigate to the site', () => {
@@ -32,4 +36,28 @@ describe('Friends Form', () => {
                .click()
 
      })
+
+     it('has validation error if username < 1 chars', () => {
+          // capture the input
+
+          cy.get(`[data-cyName='firstNameInput']`)
+          .type(errorUserName)
+
+          cy.get(`[data-cyName='${nameErrorInput}']`)
+               .contains(nameErrorMessage)
+      
+          // type one char 'a'
+          // assert that the value is 'a'
+          // find the validation error
+      
+          // type another char 'b'
+          // assert that the value is now 'ab'
+          // find the validation error
+      
+          // type another char 'c'
+          // assert that the value is now 'abc'
+          // assert that the error NOT THERE ANY MORE
+      
+          // .should('not.exist') // HINT
+        })
 })

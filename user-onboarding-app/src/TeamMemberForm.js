@@ -23,7 +23,9 @@ const TeamMemberForm = (props) => {
       <legend>Team Member Form</legend>
       {/* 🔥 STEP 10 - SHOW A BUNCH OF ERRORS */}
       <div className='errors'>
-        <h3>{errors.name}</h3>
+        <h3 
+        data-cyName='nameErrorInput' 
+        value='Name must have at least 3 characters'>{errors.name}</h3>
         <h3>{errors.email}</h3>
         <h3>{errors.password}</h3>
         <h3>{errors.termsOfService}</h3>
