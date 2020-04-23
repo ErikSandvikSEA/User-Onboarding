@@ -25,7 +25,7 @@ const TeamMemberForm = (props) => {
       <div className='errors'>
         <h3 
         data-cyName='nameErrorInput' 
-        value='Name must have at least 3 characters'>{errors.name}</h3>
+        value={errors.name}>{errors.name}</h3>
         <h3>{errors.email}</h3>
         <h3>{errors.password}</h3>
         <h3>{errors.termsOfService}</h3>

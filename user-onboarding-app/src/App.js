@@ -33,8 +33,8 @@ const initialFormErrors = {
 const formSchema = yup.object().shape({
   name: yup
     .string()
-    .min(3, 'Name must have at least 3 characters')
-    .required('Name is required'),
+    .required('Name is required')
+    .min(3, 'Name must have at least 3 characters'),
   email: yup
     .string()
     .required('Email is required')

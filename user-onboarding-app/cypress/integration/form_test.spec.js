@@ -3,7 +3,8 @@ import { v4 as uuid } from 'uuid'
 const name=uuid().slice(0,5)
 const errorUserName = `B`
 const nameErrorInput = 'nameErrorInput'
-const nameErrorMessage = 'Name must have at least 3 characters'
+const nameTooShortErrorMessage = 'Name must have at least 3 characters'
+const nameEmptyErrorMessage = 'Name is required'
 const email = `${name}@helloworld.com`
 const password = `A!23abc`
 const termsOfService = 'termsOfServiceCheckbox'
@@ -37,15 +38,16 @@ describe('Friends Form', () => {
 
      })
 
-     it('has validation error if username < 1 chars', () => {
+     it('has validation error if username < 3 chars', () => {
           // capture the input
 
           cy.get(`[data-cyName='firstNameInput']`)
           .type(errorUserName)
 
           cy.get(`[data-cyName='${nameErrorInput}']`)
-               .contains(nameErrorMessage)
+               .contains(nameTooShortErrorMessage)
       
+
           // type one char 'a'
           // assert that the value is 'a'
           // find the validation error
@@ -60,4 +62,20 @@ describe('Friends Form', () => {
       
           // .should('not.exist') // HINT
         })
+
+     it('has validation error if name is empty', () => {
+        cy.get(`[data-cyName='firstNameInput']`)
+          .type(errorUserName)
+
+          cy.get(`[data-cyName='${nameErrorInput}']`)
+               .contains(nameTooShortErrorMessage)
+      
+          cy.get(`[data-cyName='firstNameInput']`)
+               .type('{selectall}')
+               .type('{backspace}')
+
+          cy.get(`[data-cyName='${nameErrorInput}']`)
+               .contains(nameEmptyErrorMessage)
+
+     })
 })
