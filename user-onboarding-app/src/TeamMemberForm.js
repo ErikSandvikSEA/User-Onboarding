@@ -1,5 +1,9 @@
 import React from 'react';
 import './App.css';
+import Form from 'muicss/lib/react/form'
+import Input from 'muicss/lib/react/input'
+import Button from 'muicss/lib/react/button';
+
 
 const TeamMemberForm = (props) => {
   const {
@@ -14,8 +18,8 @@ const TeamMemberForm = (props) => {
   console.log(values)
 
   return (
-    <form className='friend container'>
-      <h2>Friend Form</h2>
+    <Form>
+      <legend>Team Member Form</legend>
       {/* 🔥 STEP 10 - SHOW A BUNCH OF ERRORS */}
       <div className='errors'>
         <h3>{errors.name}</h3>
@@ -26,7 +30,7 @@ const TeamMemberForm = (props) => {
       </div>
       {/* ////////// TEXT INPUTS ////////// */}
       <label>Name:&nbsp;
-            <input
+            <Input
           name='name'
           type='text'
           value={values.name}
@@ -35,7 +39,7 @@ const TeamMemberForm = (props) => {
         {/* IN-Line STYLE {errors.username.length > 2 ? (<p className="errors">{errors.username}</p>) : null} */}
       </label>
       <label>Email:&nbsp;
-            <input
+            <Input
           name='email'
           type='text'
           value={values.email}
@@ -46,7 +50,7 @@ const TeamMemberForm = (props) => {
 
       {/* ////////// DROPDOWN ////////// */}
       <label>Password&nbsp;
-            <input
+            <Input
           name='password'
           type='password'
           value={values.password}
@@ -56,31 +60,31 @@ const TeamMemberForm = (props) => {
       </label>
 
       {/* ////////// CHECKBOXES ////////// */}
-      <label><input
+      <label><Input
         checked={values.hobbies.hiking}
         onChange={onCheckboxChange}
         name='hiking'
         type="checkbox" /> Hiking</label>
-      <label><input
+      <label><Input
         checked={values.hobbies.reading}
         onChange={onCheckboxChange}
         name='reading'
         type="checkbox" /> Reading</label>
-      <label><input
+      <label><Input
         checked={values.hobbies.coding}
         onChange={onCheckboxChange}
         name='coding'
         type="checkbox" /> Coding</label>
 
-<label><input
+<label><Input
         checked={values.termsOfService}
         onChange={onTermsAgreement}
         name='termsOfService'
         type="checkbox" /> Terms of Service</label>
 
       {/* ////////// DISABLED PROP NEW FOR TODAY ////////// */}
-      <button onClick={onSubmit} disabled={disabled}>submit</button>
-    </form>
+      <Button color='primary' variant='fab' onClick={onSubmit} disabled={disabled}>submit</Button>
+    </Form>
   )
 }
 

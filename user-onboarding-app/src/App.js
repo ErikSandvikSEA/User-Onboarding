@@ -15,7 +15,7 @@ const initialFormValues = {
   ///// DROPDOWN /////
   password: '',
   ///// CHECKBOXES /////
-  termsOfService: false,
+  termsOfService: false, // 'agreed'
   hobbies: {
     hiking: false,
     reading: false,
@@ -27,7 +27,7 @@ const initialFormErrors = {
   name: '',
   email: '',
   password: '',
-  termsOfService: '',
+  termsOfService: false,
 }
 
 const formSchema = yup.object().shape({
@@ -49,6 +49,7 @@ const formSchema = yup.object().shape({
   termsOfService: yup
     .boolean().oneOf([true], 'Please agree to terms of service')
 })
+
 
 
 const App = () => {
