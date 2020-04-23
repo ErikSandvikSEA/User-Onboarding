@@ -10,6 +10,9 @@ const emailEmptyErrorMessage = 'Email is required'
 const email = `${name}@helloworld.com`
 const emailErrorInput = 'emailErrorInput'
 const password = `A!23abc`
+const passwordErrorInput = 'passwordErrorInput'
+const passwordInvalidErrorMessage = "Must Contain 6 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+const passwordEmptyErrorMessage = 'Password is required'
 const termsOfService = 'termsOfServiceCheckbox'
 
 
@@ -110,4 +113,54 @@ describe('Friends Form', () => {
                  .contains(emailEmptyErrorMessage)
   
        })
+
+       it('has validation error if password is invalid', () => {
+          cy.get(`[data-cyName='passwordInput']`)
+            .type(errorUserName)
+  
+          cy.get(`[data-cyName='${passwordErrorInput}']`)
+                 .contains(passwordInvalidErrorMessage)
+
+  
+       })
+
+       it('has validation error if password is empty', () => {
+          cy.get(`[data-cyName='passwordInput']`)
+            .type(errorUserName)
+  
+          cy.get(`[data-cyName='${passwordErrorInput}']`)
+                 .contains(passwordInvalidErrorMessage)
+
+          cy.get(`[data-cyName='passwordInput']`)
+                 .type('{selectall}')
+                 .type('{backspace}')
+
+          cy.get(`[data-cyName='${passwordErrorInput}']`)
+                 .contains(passwordEmptyErrorMessage)
+       })
+
+       it(`can't submit a friend when terms aren't agreed to`, () => {
+          cy.get(`[data-cyName='firstNameInput']`)
+               .type(name)
+               .should(`have.value`, name)
+
+          cy.get(`[data-cyName='emailInput']`)
+               .type(email)
+               .should(`have.value`, email)
+
+          cy.get(`[data-cyName='passwordInput']`)
+               .type(password)
+               .should(`have.value`, password)
+
+          cy.get(`[data-cyName='${termsOfService}']`)
+               .check()
+               .should(`have.checked`)
+
+               cy.get(`[data-cyName='${termsOfService}']`)
+               .uncheck()
+
+          cy.get(`[data-cyName='submitButton']`)
+               .should(`have.disabled`)
+
+     })
 })
