@@ -26,8 +26,13 @@ const TeamMemberForm = (props) => {
         <h3 
         data-cyName='nameErrorInput' 
         value={errors.name}>{errors.name}</h3>
-        <h3>{errors.email}</h3>
+
+        <h3
+        data-cyName='emailErrorInput' 
+        value={errors.email}>{errors.email}</h3>
+
         <h3>{errors.password}</h3>
+
         <h3>{errors.termsOfService}</h3>
 
       </div>

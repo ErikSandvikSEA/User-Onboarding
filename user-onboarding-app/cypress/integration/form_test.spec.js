@@ -5,7 +5,10 @@ const errorUserName = `B`
 const nameErrorInput = 'nameErrorInput'
 const nameTooShortErrorMessage = 'Name must have at least 3 characters'
 const nameEmptyErrorMessage = 'Name is required'
+const emailInvalidErrorMessage = 'Valid email is required'
+const emailEmptyErrorMessage = 'Email is required'
 const email = `${name}@helloworld.com`
+const emailErrorInput = 'emailErrorInput'
 const password = `A!23abc`
 const termsOfService = 'termsOfServiceCheckbox'
 
@@ -38,7 +41,7 @@ describe('Friends Form', () => {
 
      })
 
-     it('has validation error if username < 3 chars', () => {
+     it('has validation error if name < 3 chars', () => {
           // capture the input
 
           cy.get(`[data-cyName='firstNameInput']`)
@@ -78,4 +81,33 @@ describe('Friends Form', () => {
                .contains(nameEmptyErrorMessage)
 
      })
+
+     it('has validation error if email is invalid', () => {
+          cy.get(`[data-cyName='emailInput']`)
+            .type(errorUserName)
+  
+          cy.get(`[data-cyName='${emailErrorInput}']`)
+                 .contains(emailInvalidErrorMessage)
+
+          cy.get(`[data-cyName='emailInput']`)
+                 .type('{selectall}')
+                 .type('{backspace}')
+  
+       })
+
+       it('has validation error if email is empty', () => {
+          cy.get(`[data-cyName='emailInput']`)
+            .type(errorUserName)
+  
+            cy.get(`[data-cyName='${emailErrorInput}']`)
+                 .contains(emailInvalidErrorMessage)
+        
+            cy.get(`[data-cyName='emailInput']`)
+                 .type('{selectall}')
+                 .type('{backspace}')
+  
+            cy.get(`[data-cyName='${emailErrorInput}']`)
+                 .contains(emailEmptyErrorMessage)
+  
+       })
 })
