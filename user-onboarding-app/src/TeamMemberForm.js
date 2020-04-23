@@ -54,6 +54,7 @@ const TeamMemberForm = (props) => {
       {/* ////////// DROPDOWN ////////// */}
       <label>Password&nbsp;
             <Input
+          data-cyName='passwordInput'
           name='password'
           type='password'
           value={values.password}
