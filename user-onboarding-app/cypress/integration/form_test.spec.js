@@ -28,5 +28,8 @@ describe('Friends Form', () => {
                .check()
                .should(`have.checked`)
 
+          cy.get(`[data-cyName='submitButton']`)
+               .click()
+
      })
 })

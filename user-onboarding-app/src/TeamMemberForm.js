@@ -88,7 +88,12 @@ const TeamMemberForm = (props) => {
         type="checkbox" /> Terms of Service</label>
 
       {/* ////////// DISABLED PROP NEW FOR TODAY ////////// */}
-      <Button color='primary' variant='fab' onClick={onSubmit} disabled={disabled}>submit</Button>
+      <Button 
+        data-cyName='submitButton'
+        color='primary' 
+        variant='fab' 
+        onClick={onSubmit} 
+        disabled={disabled}>submit</Button>
     </Form>
   )
 }
