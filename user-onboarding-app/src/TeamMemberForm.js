@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './App.css';
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
@@ -31,6 +32,7 @@ const TeamMemberForm = (props) => {
       {/* ////////// TEXT INPUTS ////////// */}
       <label>Name:&nbsp;
             <Input
+          data-cyName='firstNameInput'
           name='name'
           type='text'
           value={values.name}
@@ -40,6 +42,7 @@ const TeamMemberForm = (props) => {
       </label>
       <label>Email:&nbsp;
             <Input
+          data-cyName='emailInput'
           name='email'
           type='text'
           value={values.email}
