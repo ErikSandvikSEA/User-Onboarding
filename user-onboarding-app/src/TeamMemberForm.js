@@ -81,6 +81,7 @@ const TeamMemberForm = (props) => {
         type="checkbox" /> Coding</label>
 
 <label><Input
+        data-cyName='termsOfServiceCheckbox'
         checked={values.termsOfService}
         onChange={onTermsAgreement}
         name='termsOfService'
